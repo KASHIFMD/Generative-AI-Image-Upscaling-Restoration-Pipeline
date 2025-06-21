@@ -1,0 +1,15 @@
+http://192.168.40.172:5008/health
+
+###
+
+http://103.42.50.106:5008/health
+
+###
+http://192.168.40.172:9094/v1/health
+
+### 
+curl --location --request GET 'http://192.168.40.172:5008/health' \
+--form 'local_path="/var/log/images_bkp/common_upload/tmp/shiv-ganga-waterpark-and-resort-panvel-navi-mumbai-1-star-resorts-q12s-w.jpg"' \
+--form 'product_url="https://images.jdmagicbox.com/v2/comp/mumbai/k9/022pxx22.xx22.170316195620.n6k9/catalogue/maharashtra-tredars-virar-east-mumbai-mineral-water-dealers-s9edo.jpg"'
+
+### 

@@ -1,0 +1,35 @@
+docker compose -f docker-compose.yml build
+docker compose -f docker-compose.yml up -d
+docker exec -it content_image_optimization_kf bash
+
+
+docker compose -f docker-compose_gpu.yml build
+docker compose -f docker-compose_gpu.yml up -d
+
+docker-compose -f docker-compose_cpu.yml build
+docker-compose -f docker-compose_cpu.yml up -d
+docker exec -it content_image_optimization_kf bash
+
+echo "nameserver 8.8.8.8" | sudo tee -a /etc/resolv.conf && \
+echo "nameserver 8.8.4.4" | sudo tee -a /etc/resolv.conf
+
+tar -czvf 184K_var.tar.gz var
+
+{
+  "docid": "string",
+  "product_id": "string",
+  "product_url": "string",
+  "org_product_url": "string",
+  "prompt": "string",
+  "hot_nid": "string",
+  "hot_catname": "string",
+  "jdmart_id": "string",
+  "jdmart_name": "string"
+}
+
+{
+  "product_url": "string",
+  "prompt": "string",
+  "cat_name": "string"
+}
+
