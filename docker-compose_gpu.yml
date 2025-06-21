@@ -3,7 +3,9 @@ services:
   content_image_optimization_kf:
     image: "content_image_optimization_kf"
     # pull_policy: always
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile_gpu
     container_name: content_image_optimization_kf
     restart: unless-stopped
     privileged: true
@@ -14,8 +16,8 @@ services:
           devices:
             - driver: nvidia
               # device_ids:
-              #   - MIG-60d6a708-f1b0-54b0-83a0-2b396432327b
-              #   - MIG-71db94d9-df33-5a82-82b8-76c07dfbc45b
+              #   - MIG-ID-1
+              #   - MIG-ID-2
               capabilities: [gpu]
     ports:
       - "5008:5008"
@@ -29,6 +31,5 @@ services:
       - /var/log/images/ml_models:/var/log/images/ml_models:rw
       - /home/ubuntu/kashif/image_enhancement:/home/ubuntu/kashif/image_enhancement:rw
     runtime: nvidia
-
     tty: true
 

@@ -3,7 +3,9 @@ services:
   content_image_optimization_kf:
     image: "content_image_optimization_kf"
     # pull_policy: always
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile_cpu
     container_name: content_image_optimization_kf
     restart: unless-stopped
     privileged: true
@@ -17,6 +19,5 @@ services:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /home/mokashif/sandbox/project01/content_image_optimization/api:/opt/api:rw
       - /var/log/images:/var/log/images:rw
-
     tty: true
 
