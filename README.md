@@ -55,6 +55,26 @@ Response format:
 }
 ```
 
-# AI-Model details:
+### AI-Model details:
 
-### [Model link, click here](./modelReadme.md)
+#### [Model link, click here](./modelReadme.md)
+
+## sampling / inference 🔍 Local Image Enhancement (No API):
+
+Use this script to test image enhancement directly with the model handler, without running any server.
+
+---
+
+#### ▶️ Example Command
+
+```bash
+python run_inference.py \
+  --image_url "https://cdn.example.com/image-enhanced.jpg" \
+  --org_image_url "https://cdn.example.com/image-original.jpg" \
+  --image_type "general" \
+  --force 1 \
+  --memory_limit 4 \
+  --output_dir "./output"
+```
+
+## Todos:

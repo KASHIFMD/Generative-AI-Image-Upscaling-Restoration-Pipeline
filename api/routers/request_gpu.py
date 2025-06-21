@@ -36,59 +36,6 @@ class RelevanceDataFormat(BaseModel):
     prompt_name: Optional[str] = None  # ✅ Default is None
     cat_name: Optional[str] = None  # ✅ Default is None
     is_json: Optional[int] = 0  # ✅ Default is False, indicating no JSON response
-        
-def get_prompt(prompt_name, prompt=None, cat_name=None):
-    if (prompt_name is None or prompt_name == "") and (prompt is not None and prompt != ""):
-        filled_prompt = prompt
-    elif prompt_name in ["vision_json", "description"]:
-        filled_prompt = prompts.get(prompt_name)
-    elif prompt_name in ["vision_json_cat", "cat"]:
-        if not cat_name:
-            return JSONResponse(status_code=400, content={"error_code": 1, "message": "Category name is required for vision_json_cat"})
-        template = Template(prompts.get(prompt_name))
-        filled_prompt = template.render(category_name=cat_name)
-    elif cat_name and cat_name != "":
-        template = Template(prompts.get("full_details_cat"))
-        filled_prompt = template.render(category_name=cat_name)
-    else:
-        template = Template(prompts.get("full_details"))
-        filled_prompt = template.render()
-    return filled_prompt
-
-def getConfigInfo():
-    process = "image_relevancy"
-    gpu_ips = ["103.42.50.120", "103.42.50.106"]
-    gpu_candidates = []
-    for gpu_ip in gpu_ips:
-        try:
-            workers = int(os.environ[f"{gpu_ip}_{process}_workers"])
-            if workers > 0:
-                port = os.environ[f"{gpu_ip}_{process}_port"]
-                gpu_candidates.append((gpu_ip, port, workers))
-        except (KeyError, ValueError) as e:
-            print(f"Skipping {gpu_ip} due to error: {e}")
-            continue
-
-    if not gpu_candidates:
-        print("No GPUs with available workers.")
-        return
-
-    # Extract workers
-    worker_counts = [w for (_, _, w) in gpu_candidates]
-    if len(set(worker_counts)) == 1:
-        # All weights are same — use round robin
-        index = int(os.environ.get(ROUND_ROBIN_INDEX_KEY, 0)) % len(gpu_candidates)
-        os.environ[ROUND_ROBIN_INDEX_KEY] = str((index + 1) % len(gpu_candidates))  # update index
-        selected_ip, selected_port, _ = gpu_candidates[index]
-        print(f"Round-robin selected GPU: {selected_ip}")
-    else:
-        # Weighted random selection
-        total = sum(worker_counts)
-        probabilities = [w / total for w in worker_counts]
-        selected_ip, selected_port, _ = random.choices(gpu_candidates, weights=probabilities, k=1)[0]
-        print(f"Weighted random selected GPU: {selected_ip}")
-    return selected_ip, selected_port
-
  
 @router.post("/img_enhance")
 def image_enhancement(request: Request, data: EnhanceDataFormat, background_tasks: BackgroundTasks):
