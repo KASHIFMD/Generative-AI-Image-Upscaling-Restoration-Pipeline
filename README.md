@@ -38,14 +38,10 @@ Request Nodes
 - image_type - it can be "general", "face" or "text"
 
 image_type:
-```bash
-{
-    "face": "GFPGANer",
-    "text": "RealESRNet_x4plus",
-    "general": "RealESRGAN_x4plus"
-}
-```
 
+* "face": "GFPGANer",
+* "text": "RealESRNet_x4plus",
+* "general": "RealESRGAN_x4plus"
 Response format:
 ```bash
 {
@@ -78,3 +74,8 @@ python run_inference.py \
 ```
 
 ## Todos:
+1. Images with higher resolution will need higher memory usage. It create `out of memory` issues. To solve this, need to implement tiling mechanism. 
+
+2. Finetune RealESRNET for better text quality intact in enhanced image containing text.
+
+3. Validation parameter need to be added in order to approve/reject the enhanced image.
