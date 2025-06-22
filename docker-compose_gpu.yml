@@ -1,12 +1,12 @@
 version: "3"
 services:
-  content_image_optimization_kf:
-    image: "content_image_optimization_kf"
+  content_image_optimization:
+    image: "content_image_optimization"
     # pull_policy: always
     build: 
       context: .
       dockerfile: Dockerfile_gpu
-    container_name: content_image_optimization_kf
+    container_name: content_image_optimization
     restart: unless-stopped
     privileged: true
     network_mode: bridge
@@ -27,9 +27,9 @@ services:
       - PROCESS=image_enhancement
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - /home/ubuntu/kashif/content_image_optimization/api:/opt/api:rw
+      - /path/to/project/content_image_optimization/api:/opt/api:rw
       - /var/log/images/ml_models:/var/log/images/ml_models:rw
-      - /home/ubuntu/kashif/image_enhancement:/home/ubuntu/kashif/image_enhancement:rw
+      - /path/to/project/image_enhancement:/path/to/project/image_enhancement:rw
     runtime: nvidia
     tty: true
 

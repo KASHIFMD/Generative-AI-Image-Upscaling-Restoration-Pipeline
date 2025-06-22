@@ -1,12 +1,12 @@
 version: "3"
 services:
-  content_image_optimization_kf:
-    image: "content_image_optimization_kf"
+  content_image_optimization:
+    image: "content_image_optimization"
     # pull_policy: always
     build: 
       context: .
       dockerfile: Dockerfile_cpu
-    container_name: content_image_optimization_kf
+    container_name: content_image_optimization
     restart: unless-stopped
     privileged: true
     network_mode: bridge
@@ -17,7 +17,7 @@ services:
       - PROCESS=content_image_optimization
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - /home/mokashif/sandbox/project01/content_image_optimization/api:/opt/api:rw
+      - /path/to/project/content_image_optimization/api:/opt/api:rw
       - /var/log/images:/var/log/images:rw
     tty: true
 

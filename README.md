@@ -1,5 +1,13 @@
 # Generative-AI-Image-Upscaling-Restoration-Pipeline
 
+- This is common codebase for CPU based as well as GPU based docker container. Use [`Dockerfile_cpu`](./Dockerfile_cpu) and [`docker-compose_cpu.yml`](./docker-compose_cpu.yml) for CPU container. While for GPU container use [`Dockerfile_gpu`](./Dockerfile_gpu) and [`docker-compose_gpu.yml`](./docker-compose_gpu.yml).
+
+- Set the server ip `SERVER_IP` and its process name `PROCESS` in respective docker-compose files.
+
+- Based on the load on the GPU, manage GPU worker from file [`worker_config.yml`](./api/worker_config.yml) file. You can update following parameters on runtime:
+    1. Worker count
+    2. GPU memory limit per worker process
+
 ### Some basic commands:
 #### Build docker image:
 ```bash
@@ -61,10 +69,10 @@ Use this script to test image enhancement directly with the model handler, witho
 
 ---
 
+[Inference file](./sample.py)
 #### ▶️ Example Command
-
 ```bash
-python run_inference.py \
+python sample.py \
   --image_url "https://cdn.example.com/image-enhanced.jpg" \
   --org_image_url "https://cdn.example.com/image-original.jpg" \
   --image_type "general" \
