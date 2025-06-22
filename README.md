@@ -9,19 +9,36 @@
     2. GPU memory limit per worker process
 
 ### Some basic commands:
-#### Build docker image:
+#### GPU container:
+Build docker image:
 ```bash
-docker compose -f docker-compose.yml build
+docker compose -f docker-compose_gpu.yml build
 ```
-#### Build docker container:
+Build docker container:
 ```bash
-docker compose -f docker-compose.yml up -d 
+docker compose -f docker-compose_gpu.yml up -d 
 ```
 
-#### Enter into docker container:
+Enter into docker container:
 ```bash
 docker exec -it content_image_optimization bash
 ```
+
+#### CPU container:
+Build docker image:
+```bash
+docker compose -f docker-compose_cpu.yml build
+```
+Build docker container:
+```bash
+docker compose -f docker-compose_cpu.yml up -d 
+```
+
+Enter into docker container:
+```bash
+docker exec -it content_image_optimization bash
+```
+
 #### Add Google DNS server in the file "/etc/resolv.conf":
 ```bash
 echo "nameserver 8.8.8.8" | tee -a /etc/resolv.conf && \
