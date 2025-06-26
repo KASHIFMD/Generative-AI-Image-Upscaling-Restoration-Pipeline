@@ -101,7 +101,7 @@ async def consume(valid_gpu_urls):
     connectServer = getConfigInfo('rabbitmq_server1')
     connection = rabbit_mq.createConnection(connectServer)
     channel = connection.channel()
-    channel.basic_qos(prefetch_count=1)
+    channel.basic_qos(prefetch_count=3)
 
     image_enhacement = ImageEnhacement()
     queue = channel.queue_declare(queue=subscribe_queue, passive=False, durable=True)
